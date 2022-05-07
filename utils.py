@@ -73,7 +73,8 @@ def scale(df, a=1):
     :param a:
     :return:
     """
-    return df.abs() / df.replace([np.inf, -np.inf], np.nan).abs().sum(skipna=True)
+    indexer = MyIndexer(window_size=1)
+    return df.abs() / df.replace([np.inf, -np.inf], np.nan).abs().rolling(window=indexer).sum(skipna=True)
 
 
 def product(df, d):
